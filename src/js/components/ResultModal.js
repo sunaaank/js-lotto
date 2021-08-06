@@ -1,4 +1,3 @@
-import { $ } from "../utils/dom.js";
 import lottoPrices from "../utils/lottoPrice.js";
 
 export function ResultModal($el, props) {
