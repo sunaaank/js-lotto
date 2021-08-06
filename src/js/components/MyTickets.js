@@ -14,7 +14,6 @@ export function MyTicketsBlock($el, props) {
         return ticketTemplate(lotto.join(", "));
       })
       .join("");
-    console.log("tickets", tickets);
 
     return tickets;
   };

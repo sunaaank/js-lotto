@@ -9,11 +9,10 @@ import { isUniqueWinNumber } from "../utils/validation.js";
 export function WinNumbersBlock($el, props) {
   $el.addEventListener("submit", e => {
     const $winNumbers = $$(".winning-number");
-    const bonusNumber = $({ selector: ".bonus-number" }).value;
+    const bonusNumber = Number($({ selector: ".bonus-number" }).value);
     const winNumbersArr = [...$winNumbers].map(number => {
-      return number.value;
+      return Number(number.value);
     });
-
     e.preventDefault();
 
     if (!isUniqueWinNumber(winNumbersArr, bonusNumber)) {
@@ -24,7 +23,10 @@ export function WinNumbersBlock($el, props) {
   });
 
   const updateWinNumbers = (winNumbersArr, bonusNumber) => {
-    props.setWinNumbers({ base: winNumbersArr, bonus: bonusNumber });
+    props.setWinNumbers({
+      base: winNumbersArr,
+      bonus: bonusNumber,
+    });
   };
 
   const winNumInputTemplate = `<input type="number" class="winning-number mx-1 text-center" min = ${MIN_LOTTO_NUMBER} max= ${MAX_LOTTO_NUMBER} required />`;
@@ -44,7 +46,8 @@ export function WinNumbersBlock($el, props) {
       <div class="bonus-number-container flex-grow">
         <h4 class="mt-0 mb-3 text-center">보너스 번호</h4>
         <div class="d-flex justify-center">
-          <input type="number" class="bonus-number text-center" min = ${MIN_LOTTO_NUMBER} max= ${MAX_LOTTO_NUMBER} required />
+          <input type="number" class="bonus-number text-center" min = ${MIN_LOTTO_NUMBER} max= ${MAX_LOTTO_NUMBER} 
+          required />
         </div>
       </div>
     </div>

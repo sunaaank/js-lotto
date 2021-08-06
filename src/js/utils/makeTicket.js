@@ -9,7 +9,6 @@ export const getTickets = ticket => {
   for (let i = 0; i < ticket; i++) {
     tickets.push(getLottoNumber());
   }
-  console.log("make tickets", tickets);
   return tickets;
 };
 
@@ -18,8 +17,14 @@ export const getLottoNumber = () => {
   while (lottoNumbers.size < LOTTO_NUMBER_COUNT_PER_TICKET) {
     lottoNumbers.add(getRandomNumber());
   }
-  console.log("make numbers", lottoNumbers);
-  return Array.from(lottoNumbers);
+  return sortWinNumbersBase(Array.from(lottoNumbers));
+};
+
+const sortWinNumbersBase = arr => {
+  const sortArr = arr.sort(function (a, b) {
+    return a - b;
+  });
+  return sortArr;
 };
 
 export const getRandomNumber = () => {

@@ -36,12 +36,28 @@ export function LottoApp($el) {
       base,
       bonus,
     };
-    setState({ winNumbers, isModalOpen: true });
-    console.log("win", winNumbers);
+    setState({ winNumbers });
+    setIsModalOpen(true);
   };
 
-  const setModalClose = () => {
-    setState({ isModalOpen: false });
+  const setIsModalOpen = status => {
+    if (status === true) {
+      setState({ isModalOpen: true });
+    } else {
+      setState({ isModalOpen: false });
+    }
+  };
+
+  const resetState = () => {
+    setState({
+      amount: null,
+      myLottos: [[]],
+      winNumbers: {
+        base: [null, null, null, null, null, null],
+        bonus: null,
+      },
+      isModalOpen: false,
+    });
   };
 
   const render = () => {
@@ -56,7 +72,7 @@ export function LottoApp($el) {
           <section data-component="win-numbers"></section>
         </div>
       </div>
-      <div data-component="result-modal" class="modal"></div>`;
+      <div data-component="result-modal" ></div>`;
 
     new LottoFormBlock(
       $({ selector: '[data-component = "purchase-form"]', parent: $el }),
@@ -78,7 +94,14 @@ export function LottoApp($el) {
     isModalOpen &&
       new ResultModal(
         $({ selector: '[data-component = "result-modal"]', parent: $el }),
-        { amount, myLottos, winNumbers, setModalClose }
+        {
+          amount,
+          myLottos,
+          winNumbers,
+          isModalOpen,
+          setIsModalOpen,
+          resetState,
+        }
       );
   };
 
